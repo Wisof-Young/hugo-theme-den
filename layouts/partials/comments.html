@@ -1,34 +1,17 @@
-<!-- Disqus -->
-{{ if .Site.DisqusShortname -}}
-<div class="disqus-comment">
-<div>
-<div class="comment-underline"></div>
+<div align="center">
+  <div class="comment-underline"></div>
 </div>
-<div class="btn btn-secondary disqus-button" id="load_disqus" onclick="load_disqus()">
-  {{ i18n "load_disqus" }}
-</div>
-<div id="disqus_thread"></div>
+
+<br>
+
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.32/twikoo.all.min.js"></script>
 <script>
-  var disqus_config = function () {
-    this.page.url = {{ .Permalink }};
-  };
-  function load_disqus() {
-    // Don't ever inject Disqus on localhost--it creates unwanted
-    // discussions from 'localhost:1313' on your Disqus account...
-    if (window.location.hostname === 'localhost') return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = '{{ .Site.DisqusShortname }}';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    dsq.setAttribute('data-timestamp', +new Date());
-    (document.head || document.body).appendChild(dsq);
-
-    $('#load_disqus').remove();
-  };
+twikoo.init({
+  envId: 'https://twikoo.oceanum.top/', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+  el: '#tcomment', // 容器元素
+  // region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+  // path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+  // lang: 'zh-CN', // 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
+})
 </script>
-<noscript>Please enable JavaScript to view the
-  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-</noscript>
-<!-- <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a> -->
-</div>
-{{ end }}
